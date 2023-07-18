@@ -1,0 +1,82 @@
+{
+  "project_info": {
+    "project_number": "343069243891",
+    "project_id": "myownvocab",
+    "storage_bucket": "myownvocab.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:343069243891:android:bd4ba4ce913cef8651fa86",
+        "android_client_info": {
+          "package_name": "com.example.myownvocab"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "343069243891-kq0le5u66p69hpi1cnrg2h5jfu167d14.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDdi0i_UbjrEXh1H9u9n1tLDUXvWPeuwvQ"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "343069243891-kq0le5u66p69hpi1cnrg2h5jfu167d14.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "343069243891-hl1e7unk7a0qf421rgqddtljaio7hq3t.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.myownvocab"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:343069243891:android:7cfb0c2e1b80cec051fa86",
+        "android_client_info": {
+          "package_name": "com.kysa.myownvocab"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "343069243891-kq0le5u66p69hpi1cnrg2h5jfu167d14.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDdi0i_UbjrEXh1H9u9n1tLDUXvWPeuwvQ"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "343069243891-kq0le5u66p69hpi1cnrg2h5jfu167d14.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "343069243891-hl1e7unk7a0qf421rgqddtljaio7hq3t.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.myownvocab"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
