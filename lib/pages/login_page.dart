@@ -2,7 +2,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
-import 'package:myownvocab/bloc/auth_bloc.dart';
+import 'package:myownvocab/blocs/auth/auth_bloc.dart';
 import 'package:myownvocab/routes/router.dart';
 
 class LoginPage extends StatefulWidget {
@@ -81,7 +81,7 @@ class _LoginPageState extends State<LoginPage> {
                           email.text.toString(), password.text.toString());
                     },
                     icon: const Icon(Icons.login),
-                    label: Text("data")),
+                    label: const Text("LOGIN")),
                 ElevatedButton.icon(
                     style: ElevatedButton.styleFrom(
                         minimumSize: const Size.fromHeight(40)),
@@ -89,7 +89,7 @@ class _LoginPageState extends State<LoginPage> {
                       getCurrentUserInfo();
                     },
                     icon: const Icon(Icons.login),
-                    label: Text("GET"))
+                    label: const Text("GET"))
               ],
             ),
           );

@@ -2,7 +2,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
-import 'package:myownvocab/bloc/auth_bloc.dart';
+import 'package:myownvocab/blocs/auth/auth_bloc.dart';
 import 'package:myownvocab/routes/router.dart';
 
 class HomePage extends StatelessWidget {
@@ -11,11 +11,6 @@ class HomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     AuthBloc authBloc = context.read<AuthBloc>();
-    final user = FirebaseAuth.instance.currentUser;
-
-    void getUser() {
-      print(user);
-    }
 
     return BlocListener<AuthBloc, AuthState>(
       bloc: authBloc,
@@ -32,11 +27,41 @@ class HomePage extends StatelessWidget {
           child: const Icon(Icons.logout),
         ),
         body: Center(
-          child: ElevatedButton(
-              onPressed: () {
-                getUser();
+          child: Container(
+            margin: const EdgeInsets.all(50),
+            child: GridView.builder(
+              shrinkWrap: true,
+              itemCount: 2,
+              gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                  crossAxisCount: 2,
+                  crossAxisSpacing: 10,
+                  mainAxisSpacing: 10,
+                  mainAxisExtent: 100),
+              itemBuilder: (context, index) {
+                late VoidCallback onTap;
+                late String title;
+                late IconData icon;
+
+                switch (index) {
+                  case 0:
+                    title = '${Routes.homePage}';
+                    onTap = () => context.goNamed(Routes.masterPage);
+                    icon = Icons.ac_unit_rounded;
+                    break;
+                  case 1:
+                    title = 'Latihan';
+                    onTap = () => context.goNamed(Routes.masterPage);
+                    icon = Icons.addchart;
+                    break;
+                }
+                return ElevatedButton.icon(
+                  onPressed: onTap,
+                  icon: Icon(icon),
+                  label: Text(title),
+                );
               },
-              child: Text("data")),
+            ),
+          ),
         ),
       ),
     );
