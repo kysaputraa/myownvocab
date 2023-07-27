@@ -7,4 +7,5 @@ abstract class Routes {
   static const detailVocab = 'detailVocab';
   static const addVocab = 'addVocab';
   static const editVocab = 'editVocab';
+  static const latihanVocab = 'latihanVocab';
 }

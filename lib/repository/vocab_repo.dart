@@ -1,0 +1,3 @@
+class VocabRepository {
+  void jawabLatihan() {}
+}

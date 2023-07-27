@@ -4,12 +4,12 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:myownvocab/blocs/vocab/vocab_bloc.dart';
 
-class EditVocab extends StatelessWidget {
-  String? id;
-  EditVocab({super.key, this.id});
+class EditVocabPage extends StatelessWidget {
+  final String id;
+  EditVocabPage({super.key, required this.id});
 
-  TextEditingController lang1 = TextEditingController();
-  TextEditingController lang2 = TextEditingController();
+  final TextEditingController lang1 = TextEditingController();
+  final TextEditingController lang2 = TextEditingController();
 
   @override
   Widget build(BuildContext context) {

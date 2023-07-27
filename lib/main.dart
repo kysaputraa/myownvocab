@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:myownvocab/blocs/auth/auth_bloc.dart';
+import 'package:myownvocab/blocs/latihan/latihan_bloc.dart';
 import 'package:myownvocab/blocs/vocab/vocab_bloc.dart';
 import 'package:myownvocab/routes/router.dart';
 import 'firebase_options.dart';
@@ -26,6 +27,9 @@ class MyApp extends StatelessWidget {
         ),
         BlocProvider<VocabBloc>(
           create: (context) => VocabBloc(),
+        ),
+        BlocProvider<LatihanBloc>(
+          create: (context) => LatihanBloc(),
         ),
       ],
       child: MaterialApp.router(

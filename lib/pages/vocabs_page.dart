@@ -1,10 +1,7 @@
-import 'dart:math';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:myownvocab/blocs/vocab/vocab_bloc.dart';
-import 'package:myownvocab/models/vocab.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:myownvocab/routes/router.dart';
 
@@ -132,6 +129,7 @@ class _MasterPageState extends State<MasterPage> {
                       ),
                       BlocConsumer<VocabBloc, VocabState>(
                         listener: (context, state) {
+                          print("object");
                           if (state is VocabCompleteDelete) {
                             ScaffoldMessenger.of(context).showSnackBar(
                                 SnackBar(content: Text("Deleted !")));

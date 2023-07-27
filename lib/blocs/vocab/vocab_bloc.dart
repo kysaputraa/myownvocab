@@ -1,6 +1,5 @@
 import 'package:bloc/bloc.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:flutter/material.dart';
 
 part 'vocab_event.dart';
 part 'vocab_state.dart';
@@ -10,7 +9,7 @@ class VocabBloc extends Bloc<VocabEvent, VocabState> {
     on<VocabEventAdd>((event, emit) async {
       try {
         emit(VocabLoading());
-        var result = await FirebaseFirestore.instance.collection("vocab").add({
+        await FirebaseFirestore.instance.collection("vocab").add({
           "lang_1": event.lang1,
           "lang_2": event.lang2,
           "created_at": "asda",
@@ -49,6 +48,19 @@ class VocabBloc extends Bloc<VocabEvent, VocabState> {
             .doc(event.id)
             .delete();
         emit(VocabCompleteDelete());
+      } on FirebaseException catch (e) {
+        emit(VocabError(e.message.toString()));
+      } catch (e) {
+        emit(VocabError(e.toString()));
+      }
+    });
+
+    on<VocabEventTes>((event, emit) async {
+      try {
+        emit(VocabLoading());
+        // if(event.jawaban == event.lang_2){
+
+        // }
       } on FirebaseException catch (e) {
         emit(VocabError(e.message.toString()));
       } catch (e) {
