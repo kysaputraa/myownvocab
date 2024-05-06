@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:myownvocab/blocs/auth/auth_bloc.dart';
+import 'package:myownvocab/repository/main_repo.dart';
 import 'package:myownvocab/routes/router.dart';
 
 class LoginPage extends StatefulWidget {
@@ -19,6 +20,10 @@ class _LoginPageState extends State<LoginPage> {
 
     final TextEditingController email = TextEditingController();
     final TextEditingController password = TextEditingController();
+    email.text = "";
+    password.text = "";
+
+    MainRepository mainRepository = MainRepository();
 
     void prosesLogin(String email, String password) {
       authBloc.add(AuthEventLogin(email: email, password: password));
@@ -28,7 +33,7 @@ class _LoginPageState extends State<LoginPage> {
       final auth = await FirebaseAuth.instance.currentUser;
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
-          content: Text("Gagal : ${auth?.email}"),
+          content: Text("Failed : ${auth?.email}"),
         ),
       );
     }
@@ -38,27 +43,36 @@ class _LoginPageState extends State<LoginPage> {
       body: BlocConsumer<AuthBloc, AuthState>(
         bloc: authBloc,
         listener: (context, state) {
-          if (state is AuthError) {
+          if (state is AuthLoading) {
+            mainRepository.loadingDialog(context);
+          } else if (state is AuthError) {
+            context.pop();
             ScaffoldMessenger.of(context).showSnackBar(
               SnackBar(
-                content: Text("Gagal : ${state.message}"),
+                content: Text("Failed : ${state.message}"),
               ),
             );
           } else if (state is AuthSuccess) {
+            context.pop();
             context.goNamed(Routes.homePage);
           }
         },
         builder: (context, state) {
-          print(state);
           return Container(
             padding: const EdgeInsets.all(20),
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
+                Image.asset(
+                  'assets/img/MyOwnVocab.png',
+                  width: 300,
+                  height: 150,
+                ),
+                const SizedBox(height: 40),
                 TextFormField(
                   controller: email,
                   // initialValue: 'rezkysaputra96@gmail.com',
-                  decoration: const InputDecoration(hintText: 'Masukkan Email'),
+                  decoration: const InputDecoration(hintText: 'Input Email'),
                 ),
                 const SizedBox(
                   height: 20,
@@ -67,12 +81,10 @@ class _LoginPageState extends State<LoginPage> {
                   controller: password,
                   obscureText: true,
                   decoration: const InputDecoration(
-                    hintText: 'Masukkan Password',
+                    hintText: 'Input Password',
                   ),
                 ),
-                const SizedBox(
-                  height: 20,
-                ),
+                const SizedBox(height: 20),
                 ElevatedButton.icon(
                     style: ElevatedButton.styleFrom(
                         minimumSize: const Size.fromHeight(40)),
@@ -82,14 +94,24 @@ class _LoginPageState extends State<LoginPage> {
                     },
                     icon: const Icon(Icons.login),
                     label: const Text("LOGIN")),
-                ElevatedButton.icon(
-                    style: ElevatedButton.styleFrom(
-                        minimumSize: const Size.fromHeight(40)),
-                    onPressed: () {
-                      getCurrentUserInfo();
-                    },
-                    icon: const Icon(Icons.login),
-                    label: const Text("GET"))
+                const SizedBox(height: 10),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    const Text("Doesnt have an account ? "),
+                    InkWell(
+                      onTap: () {
+                        context.goNamed(Routes.registerPage);
+                        // mainRepository.loadingDialog(context);
+                        // mainRepository.toastMessage(context, "TES");
+                      },
+                      child: const Text(
+                        "Register Here",
+                        style: TextStyle(color: Colors.blue),
+                      ),
+                    ),
+                  ],
+                )
               ],
             ),
           );

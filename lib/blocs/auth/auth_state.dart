@@ -6,7 +6,16 @@ class AuthInitial extends AuthState {}
 
 class AuthLoading extends AuthState {}
 
-class AuthSuccess extends AuthState {}
+class AuthSuccess extends AuthState {
+  String uid;
+  String email;
+  AuthSuccess({
+    required this.uid,
+    required this.email,
+  });
+}
+
+class AuthSuccessSignUp extends AuthState {}
 
 class AuthLogout extends AuthState {}
 

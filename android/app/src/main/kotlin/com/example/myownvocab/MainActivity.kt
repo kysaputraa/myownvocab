@@ -1,4 +1,4 @@
-package com.example.myownvocab
+package com.kysa.myownvocab
 
 import io.flutter.embedding.android.FlutterActivity
 

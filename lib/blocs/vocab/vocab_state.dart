@@ -6,11 +6,28 @@ class VocabInitial extends VocabState {}
 
 class VocabLoading extends VocabState {}
 
+class VocabLoadingAddKategori extends VocabState {}
+
+class VocabLoadingDeleteKategori extends VocabState {}
+
 class VocabCompleteAdd extends VocabState {}
+
+class VocabCompleteAddKategori extends VocabState {}
 
 class VocabCompleteUpdate extends VocabState {}
 
+class VocabCompleteUpdateKategori extends VocabState {}
+
+class VocabCompleteKategori extends VocabState {
+  List data;
+  VocabCompleteKategori({
+    required this.data,
+  });
+}
+
 class VocabCompleteDelete extends VocabState {}
+
+class VocabCompleteDeleteKategori extends VocabState {}
 
 class VocabLatihanComplete extends VocabState {
   String lang_1;

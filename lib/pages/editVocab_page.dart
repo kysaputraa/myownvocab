@@ -6,7 +6,8 @@ import 'package:myownvocab/blocs/vocab/vocab_bloc.dart';
 
 class EditVocabPage extends StatelessWidget {
   final String id;
-  EditVocabPage({super.key, required this.id});
+  final String id_kategori;
+  EditVocabPage({super.key, required this.id, required this.id_kategori});
 
   final TextEditingController lang1 = TextEditingController();
   final TextEditingController lang2 = TextEditingController();
@@ -14,8 +15,11 @@ class EditVocabPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     VocabBloc vocabBloc = context.read<VocabBloc>();
-    var streamVocabs =
-        FirebaseFirestore.instance.collection('vocab').doc(id.toString());
+    var streamVocabs = FirebaseFirestore.instance
+        .collection('kategori')
+        .doc(id_kategori)
+        .collection('vocab')
+        .doc(id.toString());
 
     return Scaffold(
       appBar: AppBar(
@@ -49,7 +53,6 @@ class EditVocabPage extends StatelessWidget {
                     child: TextField(
                       controller: lang1,
                       autocorrect: false,
-                      keyboardType: TextInputType.number,
                       maxLength: 20,
                       decoration: InputDecoration(
                         labelText: "Language First",
@@ -70,7 +73,6 @@ class EditVocabPage extends StatelessWidget {
                     child: TextField(
                       controller: lang2,
                       autocorrect: false,
-                      keyboardType: TextInputType.number,
                       maxLength: 20,
                       decoration: InputDecoration(
                         labelText: "Language Second",
@@ -86,7 +88,8 @@ class EditVocabPage extends StatelessWidget {
                     vocabBloc.add(VocabEventUpdate(
                         lang1: lang1.text,
                         lang2: lang2.text,
-                        id: id.toString()));
+                        id: id.toString(),
+                        id_kategori: id_kategori));
                   },
                   child: BlocConsumer<VocabBloc, VocabState>(
                     listener: (context, state) {

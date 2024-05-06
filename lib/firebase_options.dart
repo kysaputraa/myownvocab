@@ -63,7 +63,8 @@ class DefaultFirebaseOptions {
     messagingSenderId: '343069243891',
     projectId: 'myownvocab',
     storageBucket: 'myownvocab.appspot.com',
-    iosClientId: '343069243891-hl1e7unk7a0qf421rgqddtljaio7hq3t.apps.googleusercontent.com',
+    iosClientId:
+        '343069243891-hl1e7unk7a0qf421rgqddtljaio7hq3t.apps.googleusercontent.com',
     iosBundleId: 'com.example.myownvocab',
   );
 }

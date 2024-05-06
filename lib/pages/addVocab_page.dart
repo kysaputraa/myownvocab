@@ -4,7 +4,8 @@ import 'package:go_router/go_router.dart';
 import 'package:myownvocab/blocs/vocab/vocab_bloc.dart';
 
 class AddVocabPage extends StatefulWidget {
-  const AddVocabPage({super.key});
+  final String id_kategori;
+  AddVocabPage({super.key, required this.id_kategori});
 
   @override
   State<AddVocabPage> createState() => _AddVocabPageState();
@@ -33,7 +34,6 @@ class _AddVocabPageState extends State<AddVocabPage> {
               child: TextField(
                 controller: lang1,
                 autocorrect: false,
-                keyboardType: TextInputType.number,
                 maxLength: 20,
                 decoration: InputDecoration(
                   labelText: "Language First",
@@ -54,7 +54,6 @@ class _AddVocabPageState extends State<AddVocabPage> {
               child: TextField(
                 controller: lang2,
                 autocorrect: false,
-                keyboardType: TextInputType.number,
                 maxLength: 20,
                 decoration: InputDecoration(
                   labelText: "Language Second",
@@ -67,8 +66,10 @@ class _AddVocabPageState extends State<AddVocabPage> {
           ),
           ElevatedButton(
             onPressed: () {
-              vocabbloc
-                  .add(VocabEventAdd(lang1: lang1.text, lang2: lang2.text));
+              vocabbloc.add(VocabEventAdd(
+                  lang1: lang1.text,
+                  lang2: lang2.text,
+                  id_kategori: widget.id_kategori.toString()));
             },
             child: BlocConsumer<VocabBloc, VocabState>(
               listener: (context, state) {

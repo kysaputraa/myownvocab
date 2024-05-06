@@ -5,7 +5,8 @@ import 'package:myownvocab/blocs/latihan/latihan_bloc.dart';
 import 'package:myownvocab/blocs/vocab/vocab_bloc.dart';
 
 class LatihanVocabPage extends StatefulWidget {
-  const LatihanVocabPage({super.key});
+  final String id_kategori;
+  const LatihanVocabPage({super.key, required this.id_kategori});
 
   @override
   State<LatihanVocabPage> createState() => _LatihanVocabPageState();
@@ -26,8 +27,9 @@ class _LatihanVocabPageState extends State<LatihanVocabPage> {
         return AlertDialog(
           title: const Text('SELESAI '),
           content: Container(
-            height: 200,
+            height: 100,
             child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 Text('Benar : $benar \n'
                     'Salah : $salah \n'),
@@ -53,7 +55,7 @@ class _LatihanVocabPageState extends State<LatihanVocabPage> {
 
   Future<void> _dialogBuilderJawaban(
       BuildContext context, int benar, String jawaban, String q, String a) {
-    String status = benar == 1 ? "BENAR" : "SALAH";
+    String status = benar == 1 ? "Correct" : "Wrong";
     return showDialog<void>(
       context: context,
       barrierDismissible: false,
@@ -61,7 +63,7 @@ class _LatihanVocabPageState extends State<LatihanVocabPage> {
         return AlertDialog(
           title: Text(status),
           content: Text(
-            'Arti Kata dari $q adalah $a, dan kamu menjawab $jawaban',
+            'The meaning of the word $q is $a, and you have answered $jawaban',
           ),
           actions: <Widget>[
             TextButton(
@@ -81,10 +83,13 @@ class _LatihanVocabPageState extends State<LatihanVocabPage> {
 
   @override
   Widget build(BuildContext context) {
+    print("id kategori${widget.id_kategori}");
     final TextEditingController jawaban = TextEditingController();
 
-    final CollectionReference stream =
-        FirebaseFirestore.instance.collection('vocab');
+    final CollectionReference stream = FirebaseFirestore.instance
+        .collection('kategori')
+        .doc(widget.id_kategori)
+        .collection('vocab');
     return Scaffold(
       body: StreamBuilder(
         stream: stream.snapshots(),
@@ -105,6 +110,12 @@ class _LatihanVocabPageState extends State<LatihanVocabPage> {
           randomizedList.shuffle();
           jumlah = randomizedList.length;
 
+          if (jumlah == 0) {
+            return const Center(
+              child: Text("Empty !"),
+            );
+          }
+
           latihanBloc.add(
             LatihanEventInitial(
                 lang_1: randomizedList[index]['lang_1'],
@@ -122,18 +133,29 @@ class _LatihanVocabPageState extends State<LatihanVocabPage> {
               if (state is LatihanLoading) {
                 return const Center(child: CircularProgressIndicator());
               } else if (state is LatihanComplete) {
+                print(jumlah);
+
+                if (jumlah == 0) {
+                  return const Center(
+                    child: Text("Empty Data !"),
+                  );
+                }
+
                 return Container(
                   padding: const EdgeInsets.all(30),
                   child: SingleChildScrollView(
                     child: Column(
                       children: [
+                        const SizedBox(height: 20),
                         Container(
+                          padding: const EdgeInsets.all(20),
                           height: 400,
                           width: double.infinity,
                           decoration: BoxDecoration(
-                              color: Colors.amber,
+                              color: Colors.green.shade200,
                               border: Border.all(
-                                color: Colors.red,
+                                width: 2,
+                                color: Colors.green.shade800,
                               ),
                               borderRadius:
                                   const BorderRadius.all(Radius.circular(20))),
@@ -159,10 +181,10 @@ class _LatihanVocabPageState extends State<LatihanVocabPage> {
                               ),
                               SizedBox(
                                   height: 20,
-                                  child: Text("benar : ${state.benar}")),
+                                  child: Text("Corrects : ${state.benar}")),
                               SizedBox(
                                   height: 40,
-                                  child: Text("salah : ${state.salah}")),
+                                  child: Text("Wrongs : ${state.salah}")),
                             ],
                           )),
                         ),
@@ -183,7 +205,8 @@ class _LatihanVocabPageState extends State<LatihanVocabPage> {
                             style: ElevatedButton.styleFrom(
                                 minimumSize: const Size.fromHeight(40)),
                             onPressed: () {
-                              if (jawaban.text == state.lang_2) {
+                              if (jawaban.text.toLowerCase() ==
+                                  state.lang_2.toLowerCase()) {
                                 benar = 1;
                                 salah = 0;
                               } else {
@@ -220,7 +243,19 @@ class _LatihanVocabPageState extends State<LatihanVocabPage> {
                   ),
                 );
               }
-              return Text("Somenthing went wrong");
+              return const Center(
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    CircularProgressIndicator(),
+                    SizedBox(height: 20),
+                    Text(
+                      "Loading ...",
+                      style: TextStyle(color: Colors.black),
+                    )
+                  ],
+                ),
+              );
             },
           );
 
