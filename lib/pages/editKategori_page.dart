@@ -92,7 +92,29 @@ class EditKategoriPage extends StatelessWidget {
               ElevatedButton(
                 style: ElevatedButton.styleFrom(
                     backgroundColor: Color.fromARGB(255, 174, 20, 9)),
-                onPressed: () {
+                onPressed: () async {
+                  final result = await showDialog<bool>(
+                    context: context,
+                    builder: (context) => AlertDialog(
+                      title: const Text('Are you sure?'),
+                      content: const Text(
+                          'This action will permanently delete this data'),
+                      actions: [
+                        TextButton(
+                          onPressed: () => Navigator.pop(context, false),
+                          child: const Text('Cancel'),
+                        ),
+                        TextButton(
+                          onPressed: () => Navigator.pop(context, true),
+                          child: const Text('Delete'),
+                        ),
+                      ],
+                    ),
+                  );
+
+                  if (result == null || !result) {
+                    return;
+                  }
                   vocabBloc.add(VocabEventDeleteKategori(
                     id: id.toString(),
                   ));

@@ -65,6 +65,6 @@ class DefaultFirebaseOptions {
     storageBucket: 'myownvocab.appspot.com',
     iosClientId:
         '343069243891-hl1e7unk7a0qf421rgqddtljaio7hq3t.apps.googleusercontent.com',
-    iosBundleId: 'com.example.myownvocab',
+    iosBundleId: 'com.kysa.myownvocab',
   );
 }

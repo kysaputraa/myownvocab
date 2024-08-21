@@ -175,9 +175,40 @@ class _MasterPageState extends State<MasterPage> {
                                 value: '/about',
                                 child: Text("Delete"),
                                 onTap: () {
-                                  vocabBloc.add(VocabEventDelete(
-                                      id_kategori: id,
-                                      id: documentSnapshot.id.toString()));
+                                  WidgetsBinding?.instance
+                                      ?.addPostFrameCallback((_) async {
+                                    final result = await showDialog<bool>(
+                                      context: context,
+                                      builder: (context) => AlertDialog(
+                                        title: const Text('Are you sure?'),
+                                        content: const Text(
+                                            'This action will permanently delete this data'),
+                                        actions: [
+                                          TextButton(
+                                            onPressed: () =>
+                                                Navigator.pop(context, false),
+                                            child: const Text('Cancel'),
+                                          ),
+                                          TextButton(
+                                            onPressed: () =>
+                                                Navigator.pop(context, true),
+                                            child: const Text('Delete'),
+                                          ),
+                                        ],
+                                      ),
+                                    );
+
+                                    if (result == null || !result) {
+                                      return;
+                                    }
+
+                                    vocabBloc.add(
+                                      VocabEventDelete(
+                                        id_kategori: id,
+                                        id: documentSnapshot.id.toString(),
+                                      ),
+                                    );
+                                  });
                                 },
                               ),
                             ];

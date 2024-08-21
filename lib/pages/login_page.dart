@@ -72,7 +72,11 @@ class _LoginPageState extends State<LoginPage> {
                 TextFormField(
                   controller: email,
                   // initialValue: 'rezkysaputra96@gmail.com',
-                  decoration: const InputDecoration(hintText: 'Input Email'),
+                  decoration: const InputDecoration(
+                    hintText: 'Input Email',
+                    // filled: true,
+                    // fillColor: Color.fromARGB(255, 236, 236, 236),
+                  ),
                 ),
                 const SizedBox(
                   height: 20,
@@ -81,6 +85,8 @@ class _LoginPageState extends State<LoginPage> {
                   controller: password,
                   obscureText: true,
                   decoration: const InputDecoration(
+                    // filled: true,
+                    // fillColor: Color.fromARGB(255, 236, 236, 236),
                     hintText: 'Input Password',
                   ),
                 ),

@@ -29,12 +29,13 @@ class _HomePageState extends State<HomePage> {
       },
       child: Scaffold(
         floatingActionButton: FloatingActionButton(
-          backgroundColor: Color.fromARGB(255, 161, 44, 42),
+          backgroundColor: Colors.red.shade800,
           onPressed: () {
             authBloc.add(AuthEventLogout());
           },
           child: const Icon(Icons.logout),
         ),
+        floatingActionButtonLocation: FloatingActionButtonLocation.endTop,
         body: Center(
           child: Column(
             children: [

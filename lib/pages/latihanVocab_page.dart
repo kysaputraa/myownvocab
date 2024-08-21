@@ -140,7 +140,6 @@ class _LatihanVocabPageState extends State<LatihanVocabPage> {
                     child: Text("Empty Data !"),
                   );
                 }
-
                 return Container(
                   padding: const EdgeInsets.all(30),
                   child: SingleChildScrollView(
@@ -152,7 +151,7 @@ class _LatihanVocabPageState extends State<LatihanVocabPage> {
                           height: 400,
                           width: double.infinity,
                           decoration: BoxDecoration(
-                              color: Colors.green.shade200,
+                              color: Colors.blue,
                               border: Border.all(
                                 width: 2,
                                 color: Colors.green.shade800,

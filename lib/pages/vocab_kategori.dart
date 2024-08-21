@@ -21,7 +21,6 @@ class _VocabKategoriPageState extends State<VocabKategoriPage> {
 
     return Scaffold(
       floatingActionButton: FloatingActionButton(
-        backgroundColor: Colors.green.shade800,
         onPressed: () {
           context.goNamed(Routes.addKategori);
         },
